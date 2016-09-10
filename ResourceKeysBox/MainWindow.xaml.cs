@@ -11,8 +11,9 @@
     {
         public MainWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this.DataGrid.ItemsSource = this.GetColorKeysAndValues();
+            //DumpResources(this.GetColorKeysAndValues());
         }
 
         private IReadOnlyList<KeyAndColor> GetColorKeysAndValues()
@@ -21,8 +22,7 @@
                 .Where(x => typeof(ResourceKey).IsAssignableFrom(x.PropertyType))
                 .Where(x => x.Name.Contains("Color"))
                 .OrderBy(x => x.Name)
-                .Select(x => (ResourceKey) x.GetValue(null))
-                .Select(k => new KeyAndColor(k, (Color) this.FindResource(k)))
+                .Select(p => new KeyAndColor(p.Name, (Color)this.FindResource(p.GetValue(null))))
                 .ToArray();
         }
 
@@ -36,6 +36,19 @@
             }
             var markdown = stringBuilder.ToString();
             return markdown;
+        }
+
+        private static string DumpResources(IReadOnlyList<KeyAndColor> source)
+        {
+            var stringBuilder = new StringBuilder();
+            foreach (var keyAndColor in source)
+            {
+                stringBuilder.AppendLine($"<Color x:Key=\"{{x:Static SystemColors.{keyAndColor.ResourceKey}}}\">{keyAndColor.Color}</Color>");
+                stringBuilder.AppendLine($"<SolidColorBrush x:Key=\"{{x:Static SystemColors.{keyAndColor.ResourceKey.Replace("Color", "Brush")}}}\" Color=\"{{DynamicResource {{x:Static SystemColors.{keyAndColor.ResourceKey}}}}}\" />");
+            }
+
+            var xaml = stringBuilder.ToString();
+            return xaml;
         }
     }
 }

@@ -11,6 +11,12 @@
             this.Color = color.ToString();
         }
 
+        public KeyAndColor(string key, Color color)
+        {
+            this.ResourceKey = key;
+            this.Color = color.ToString();
+        }
+
         public string ResourceKey { get; }
 
         public string Color { get; }
