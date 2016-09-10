@@ -3,9 +3,9 @@
     using System.Windows;
     using System.Windows.Media;
 
-    public class KeyAndValue
+    public class KeyAndColor
     {
-        public KeyAndValue(ResourceKey key, Color color)
+        public KeyAndColor(ResourceKey key, Color color)
         {
             this.ResourceKey = key.ToString();
             this.Color = color.ToString();
