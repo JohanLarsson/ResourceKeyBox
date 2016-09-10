@@ -8,5 +8,47 @@
         Width="525"
         Height="350"
         mc:Ignorable="d">
-    <DataGrid x:Name="DataGrid" />
+    <Window.DataContext>
+        <local:ViewModel />
+    </Window.DataContext>
+    <DataGrid x:Name="DataGrid"
+              AutoGenerateColumns="False"
+              ItemsSource="{Binding KeyAndColorResources}">
+        <DataGrid.Columns>
+            <DataGridTextColumn Binding="{Binding Keys,
+                                                  Mode=OneTime}"
+                                Header="Key"
+                                SortMemberPath="Keys.SortMember" />
+            <DataGridTextColumn Binding="{Binding ColorResource.Color}"
+                                Header="Color"
+                                SortMemberPath="ColorResource.CurrentLuminance" />
+            <DataGridTemplateColumn Header="Sample" SortMemberPath="ColorResource.CurrentLuminance">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate DataType="{x:Type local:KeyAndColorResource}">
+                        <Rectangle>
+                            <Rectangle.Fill>
+                                <SolidColorBrush Color="{Binding ColorResource.Color}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+
+            <DataGridTextColumn Binding="{Binding ColorResource.OriginalColor,
+                                                  Mode=OneTime}"
+                                Header="Original color"
+                                SortMemberPath="ColorResource.Luminance" />
+            <DataGridTemplateColumn Header="Sample" SortMemberPath="ColorResource.Luminance">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate DataType="{x:Type local:KeyAndColorResource}">
+                        <Rectangle>
+                            <Rectangle.Fill>
+                                <SolidColorBrush Color="{Binding ColorResource.OriginalColor, Mode=OneTime}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+        </DataGrid.Columns>
+    </DataGrid>
 </Window>

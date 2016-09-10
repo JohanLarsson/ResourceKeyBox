@@ -9,45 +9,65 @@
 
     public class ColorResource : INotifyPropertyChanged
     {
-        private static Dictionary<string, ColorResource> cache = new Dictionary<string, ColorResource>();
         private Color color;
+        private double currentLuminance;
 
-        private ColorResource(Color color, IReadOnlyList<ResourceKey> keys)
+        public ColorResource(Color color, IReadOnlyList<Keys> keys)
         {
-            this.Color = color;
+            this.OriginalColor = color;
+            this.color = color;
             this.Keys = keys;
+            this.Luminance = CalculateLuminance(color);
+            this.currentLuminance = CalculateLuminance(color);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public Color OriginalColor { get; }
 
         public Color Color
         {
             get { return this.color; }
             set
             {
-                if (value.Equals(this.color)) return;
+                if (this.color == value)
+                {
+                    return;
+                }
+
                 this.color = value;
                 this.OnPropertyChanged();
-                foreach (var key in Keys)
+                this.CurrentLuminance = CalculateLuminance(this.color);
+                foreach (var key in this.Keys)
                 {
-                    if (Application.Current.Resources[key] is Color)
-                    {
-                        Application.Current.Resources[key] = value;
-                    }
-                    if (Application.Current.Resources[key] is SolidColorBrush)
-                    {
-                        Application.Current.Resources[key] = new SolidColorBrush(value);
-                    }
+                    Application.Current.Resources[key.ColorKey] = value;
+                    Application.Current.Resources[key.BrushKey] = new SolidColorBrush(value);
                 }
             }
         }
 
-        public IReadOnlyList<ResourceKey> Keys { get; }
+        public double Luminance { get; }
+
+        public double CurrentLuminance
+        {
+            get { return this.currentLuminance; }
+            private set
+            {
+                if (value.Equals(this.currentLuminance)) return;
+                this.currentLuminance = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+        public IReadOnlyList<Keys> Keys { get; }
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        private static double CalculateLuminance(Color color) => 0.2126 * color.R + 0.7152 * color.G + 0.0722 * color.B;
+
     }
 }
