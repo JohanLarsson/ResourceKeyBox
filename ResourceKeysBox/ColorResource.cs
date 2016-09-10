@@ -10,20 +10,22 @@
     public class ColorResource : INotifyPropertyChanged
     {
         private Color color;
-        private double currentLuminance;
+        private Hsv hsv;
 
         public ColorResource(Color color, IReadOnlyList<Keys> keys)
         {
             this.OriginalColor = color;
             this.color = color;
             this.Keys = keys;
-            this.Luminance = CalculateLuminance(color);
-            this.currentLuminance = CalculateLuminance(color);
+            this.OriginalHsv = Hsv.ColorToHSV(color);
+            this.hsv = Hsv.ColorToHSV(color);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public Color OriginalColor { get; }
+
+        public Hsv OriginalHsv { get; }
 
         public Color Color
         {
@@ -37,7 +39,7 @@
 
                 this.color = value;
                 this.OnPropertyChanged();
-                this.CurrentLuminance = CalculateLuminance(this.color);
+                this.Hsv = Hsv.ColorToHSV(this.color);
                 foreach (var key in this.Keys)
                 {
                     Application.Current.Resources[key.ColorKey] = value;
@@ -46,15 +48,13 @@
             }
         }
 
-        public double Luminance { get; }
-
-        public double CurrentLuminance
+        public Hsv Hsv
         {
-            get { return this.currentLuminance; }
+            get { return this.hsv; }
             private set
             {
-                if (value.Equals(this.currentLuminance)) return;
-                this.currentLuminance = value;
+                if (value.Equals(this.hsv)) return;
+                this.hsv = value;
                 this.OnPropertyChanged();
             }
         }
@@ -66,8 +66,5 @@
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        private static double CalculateLuminance(Color color) => 0.2126 * color.R + 0.7152 * color.G + 0.0722 * color.B;
-
     }
 }

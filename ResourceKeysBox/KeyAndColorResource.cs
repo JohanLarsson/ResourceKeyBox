@@ -1,7 +1,5 @@
 ﻿namespace ResourceKeysBox
 {
-    using System.Windows.Media;
-
     public class KeyAndColorResource
     {
         public KeyAndColorResource(Keys keys, ColorResource colorResource)

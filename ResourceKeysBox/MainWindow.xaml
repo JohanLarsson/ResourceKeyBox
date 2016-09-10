@@ -11,44 +11,64 @@
     <Window.DataContext>
         <local:ViewModel />
     </Window.DataContext>
-    <DataGrid x:Name="DataGrid"
+    <TabControl>
+        <TabItem Header="SystemColors" DataContext="{Binding SystemColors}">
+            <DataGrid x:Name="DataGrid"
               AutoGenerateColumns="False"
               ItemsSource="{Binding KeyAndColorResources}">
-        <DataGrid.Columns>
-            <DataGridTextColumn Binding="{Binding Keys,
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Keys,
                                                   Mode=OneTime}"
                                 Header="Key"
                                 SortMemberPath="Keys.SortMember" />
-            <DataGridTextColumn Binding="{Binding ColorResource.Color}"
+                    <DataGridTextColumn Binding="{Binding ColorResource.Color}"
                                 Header="Color"
-                                SortMemberPath="ColorResource.CurrentLuminance" />
-            <DataGridTemplateColumn Header="Sample" SortMemberPath="ColorResource.CurrentLuminance">
-                <DataGridTemplateColumn.CellTemplate>
-                    <DataTemplate DataType="{x:Type local:KeyAndColorResource}">
-                        <Rectangle>
-                            <Rectangle.Fill>
-                                <SolidColorBrush Color="{Binding ColorResource.Color}" />
-                            </Rectangle.Fill>
-                        </Rectangle>
-                    </DataTemplate>
-                </DataGridTemplateColumn.CellTemplate>
-            </DataGridTemplateColumn>
+                                SortMemberPath="ColorResource.Hsv.Value" />
+                    <DataGridTextColumn Binding="{Binding ColorResource.Hsv.Hue, Mode=OneWay, StringFormat='F1'}"
+                                Header="Hue"/>
+                    <DataGridTextColumn Binding="{Binding ColorResource.Hsv.Saturation, Mode=OneWay, StringFormat='F1'}"
+                                Header="Saturation" />
+                    <DataGridTextColumn Binding="{Binding ColorResource.Hsv.Value, Mode=OneWay, StringFormat='F1'}"
+                                Header="Value" />
+                    <DataGridTemplateColumn Header="Sample" SortMemberPath="ColorResource.Hsv.Value">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="{x:Type local:KeyAndColorResource}">
+                                <Rectangle>
+                                    <Rectangle.Fill>
+                                        <SolidColorBrush Color="{Binding ColorResource.Color}" />
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
-            <DataGridTextColumn Binding="{Binding ColorResource.OriginalColor,
+                    <DataGridTextColumn Binding="{Binding ColorResource.OriginalColor,
                                                   Mode=OneTime}"
                                 Header="Original color"
-                                SortMemberPath="ColorResource.Luminance" />
-            <DataGridTemplateColumn Header="Sample" SortMemberPath="ColorResource.Luminance">
-                <DataGridTemplateColumn.CellTemplate>
-                    <DataTemplate DataType="{x:Type local:KeyAndColorResource}">
-                        <Rectangle>
-                            <Rectangle.Fill>
-                                <SolidColorBrush Color="{Binding ColorResource.OriginalColor, Mode=OneTime}" />
-                            </Rectangle.Fill>
-                        </Rectangle>
-                    </DataTemplate>
-                </DataGridTemplateColumn.CellTemplate>
-            </DataGridTemplateColumn>
-        </DataGrid.Columns>
-    </DataGrid>
+                                SortMemberPath="ColorResource.OriginalHsv.Value" />
+                    <DataGridTextColumn Binding="{Binding ColorResource.OriginalHsv.Hue, Mode=OneWay, StringFormat='F1'}"
+                                Header="Hue" />
+                    <DataGridTextColumn Binding="{Binding ColorResource.OriginalHsv.Saturation, Mode=OneWay, StringFormat='F1'}"
+                                Header="Saturation" />
+                    <DataGridTextColumn Binding="{Binding ColorResource.OriginalHsv.Value, Mode=OneWay, StringFormat='F1'}"
+                                Header="Value" />
+
+                    <DataGridTemplateColumn Header="Sample" SortMemberPath="ColorResource.OriginalHsv.Value">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="{x:Type local:KeyAndColorResource}">
+                                <Rectangle>
+                                    <Rectangle.Fill>
+                                        <SolidColorBrush Color="{Binding ColorResource.OriginalColor, Mode=OneTime}" />
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </TabItem>
+        <TabItem Header="ResourceDictionary">
+            
+        </TabItem>
+    </TabControl>
 </Window>
