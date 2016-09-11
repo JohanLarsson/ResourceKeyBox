@@ -31,7 +31,7 @@
                                        .Where(x => x.Name.LocalName == "SolidColorBrush")
                                        .ToArray();
             var colorKeys = brushElements.Select(e => e.AttributeValue("Key"))
-                .OrderBy(x => x)
+                //.OrderBy(x => x)
                 .Select(p => new ComponentResourceKey(typeof(KeyAndColorResource), p))
                 .ToArray();
 
@@ -57,7 +57,7 @@
             var colorKeys = type.GetProperties(BindingFlags.Static | BindingFlags.Public)
                 .Where(x => typeof(ResourceKey).IsAssignableFrom(x.PropertyType))
                 .Where(x => x.Name.Contains("Color"))
-                .OrderBy(x => x.Name)
+                //.OrderBy(x => x.Name)
                 .Select(p => (ResourceKey)p.GetValue(null))
                 .ToArray();
             var colorAndBrushKeys = colorKeys.Select(key => new Keys(key, (ResourceKey)type.GetProperty(key.ToString().Replace("Color", "Brush") + "Key")?.GetValue(null)))

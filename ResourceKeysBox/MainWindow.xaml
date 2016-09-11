@@ -21,7 +21,10 @@
         <TabControl ItemsSource="{Binding Sources}">
             <TabControl.ContentTemplate>
                 <DataTemplate DataType="{x:Type local:KeyAndColorResources}">
-                    <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding}">
+                    <DataGrid AutoGenerateColumns="False"
+                              ItemsSource="{Binding}"
+                              SelectionMode="Extended"
+                              SelectionUnit="Cell">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Keys.Name, Mode=OneTime}" Header="Key" />
                             <DataGridTextColumn Binding="{Binding ColorResource.Color, Converter={x:Static local:ColorConverter.Default}, Mode=TwoWay}" Header="Color" />

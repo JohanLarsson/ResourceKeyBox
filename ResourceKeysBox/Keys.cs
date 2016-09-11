@@ -8,7 +8,7 @@
         {
             this.BrushKey = brushKey;
             this.ColorKey = colorKey;
-            this.Name = GetName(colorKey) ?? GetName(brushKey).Replace("Color", "").Replace("Brush", "");
+            this.Name = (GetName(colorKey) ?? GetName(brushKey)).Replace("Color", "").Replace("Brush", "");
         }
 
         public ResourceKey BrushKey { get; }
