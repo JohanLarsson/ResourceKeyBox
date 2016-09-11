@@ -5,7 +5,7 @@
     using System.Runtime.CompilerServices;
     using System.Windows;
     using System.Windows.Media;
-    using ResourceKeysBox.Annotations;
+    using JetBrains.Annotations;
 
     public class ColorResource : INotifyPropertyChanged
     {
@@ -42,8 +42,15 @@
                 this.Hsv = Hsv.ColorToHSV(this.color);
                 foreach (var key in this.Keys)
                 {
-                    Application.Current.Resources[key.ColorKey] = value;
-                    Application.Current.Resources[key.BrushKey] = new SolidColorBrush(value);
+                    if (key.ColorKey != null)
+                    {
+                        Application.Current.Resources[key.ColorKey] = value;
+                    }
+
+                    if (key.BrushKey != null)
+                    {
+                        Application.Current.Resources[key.BrushKey] = new SolidColorBrush(value);
+                    }
                 }
             }
         }

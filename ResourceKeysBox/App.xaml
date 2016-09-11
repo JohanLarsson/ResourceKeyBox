@@ -1,6 +1,63 @@
 ﻿<Application x:Class="ResourceKeysBox.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ResourceKeysBox"
              StartupUri="MainWindow.xaml">
-    <Application.Resources />
+    <Application.Resources>
+        <DataTemplate DataType="{x:Type local:KeyAndColorResources}">
+            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Keys.Name, Mode=OneTime}" Header="Key" />
+                    <DataGridTextColumn Binding="{Binding ColorResource.Color, Converter={x:Static local:ColorConverter.Default}, Mode=TwoWay}" Header="Color" />
+                    <DataGridTextColumn Binding="{Binding ColorResource.Hsv.Hue, Mode=OneWay, StringFormat='F1'}" Header="Hue" />
+                    <DataGridTextColumn Binding="{Binding ColorResource.Hsv.Saturation, Mode=OneWay, StringFormat='F1'}" Header="Saturation" />
+                    <DataGridTextColumn Binding="{Binding ColorResource.Hsv.Value, Mode=OneWay, StringFormat='F1'}" Header="Value" />
+                    <DataGridTemplateColumn Header="Sample" SortMemberPath="ColorResource.Hsv.Value">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="{x:Type local:KeyAndColorResource}">
+                                <Rectangle>
+                                    <Rectangle.Fill>
+                                        <SolidColorBrush Color="{Binding ColorResource.Color}" />
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTextColumn Binding="{Binding ColorResource.OriginalColor,
+                                                          Mode=OneTime,
+                                                          Converter={x:Static local:ColorConverter.Default}}"
+                                        Header="Original color"
+                                        IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding ColorResource.OriginalHsv.Hue,
+                                                          Mode=OneWay,
+                                                          StringFormat='F1'}"
+                                        Header="Hue"
+                                        IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding ColorResource.OriginalHsv.Saturation,
+                                                          Mode=OneWay,
+                                                          StringFormat='F1'}"
+                                        Header="Saturation"
+                                        IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding ColorResource.OriginalHsv.Value,
+                                                          Mode=OneWay,
+                                                          StringFormat='F1'}"
+                                        Header="Value"
+                                        IsReadOnly="True" />
+
+                    <DataGridTemplateColumn Header="Sample" SortMemberPath="ColorResource.OriginalHsv.Value">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="{x:Type local:KeyAndColorResource}">
+                                <Rectangle>
+                                    <Rectangle.Fill>
+                                        <SolidColorBrush Color="{Binding ColorResource.OriginalColor, Mode=OneTime}" />
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DataTemplate>
+    </Application.Resources>
 </Application>

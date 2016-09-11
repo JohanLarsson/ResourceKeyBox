@@ -8,15 +8,31 @@
         {
             this.BrushKey = brushKey;
             this.ColorKey = colorKey;
-            this.Name = this.ColorKey.ToString().Replace("Color", "");
+            this.Name = GetName(colorKey) ?? GetName(brushKey).Replace("Color", "").Replace("Brush", "");
         }
 
-        public ResourceKey BrushKey { get; set; }
+        public ResourceKey BrushKey { get; }
 
         public ResourceKey ColorKey { get; }
 
-        public string Name { get;  }
+        public string Name { get; }
 
-        public override string ToString() => this.ColorKey.ToString();
+        public override string ToString() => this.Name;
+
+        private static string GetName(ResourceKey resourceKey)
+        {
+            if (resourceKey == null)
+            {
+                return null;
+            }
+
+            var componentResourceKey = resourceKey as ComponentResourceKey;
+            if (componentResourceKey != null)
+            {
+                return (string)componentResourceKey.ResourceId;
+            }
+
+            return resourceKey.ToString();
+        }
     }
 }

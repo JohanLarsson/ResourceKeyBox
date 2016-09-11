@@ -8,18 +8,18 @@
     using System.Text;
     using System.Windows;
     using System.Windows.Media;
-    using ResourceKeysBox.Annotations;
+    using JetBrains.Annotations;
 
     public class SystemColorsViewModel : INotifyPropertyChanged
     {
         public SystemColorsViewModel()
         {
-            this.KeyAndColorResources = this.GetColorKeysAndValues();
+            this.KeyAndColorResources = new KeyAndColorResources(this.GetColorKeysAndValues());
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public IReadOnlyList<KeyAndColorResource> KeyAndColorResources { get;  }
+        public KeyAndColorResources KeyAndColorResources { get; }
 
         private IReadOnlyList<KeyAndColorResource> GetColorKeysAndValues()
         {
@@ -29,15 +29,15 @@
                 .OrderBy(x => x.Name)
                 .Select(p => (ResourceKey)p.GetValue(null))
                 .ToArray();
-            var colorAndBrushKeys =
-                colorKeys.Select(key => new Keys(key, (ResourceKey)typeof(SystemColors).GetProperty(key.ToString().Replace("Color", "Brush") + "Key").GetValue(null)))
-                         .ToArray();
+            var colorAndBrushKeys = colorKeys.Select(key => new Keys(key, (ResourceKey)typeof(SystemColors).GetProperty(key.ToString().Replace("Color", "Brush") + "Key").GetValue(null)))
+                                             .ToArray();
 
-            var colorResources = colorKeys.ToLookup(k => (Color) Application.Current.FindResource(k), k => colorAndBrushKeys.Single(x => x.ColorKey == k))
+            var colorResources = colorKeys.ToLookup(k => (Color)Application.Current.FindResource(k), k => colorAndBrushKeys.Single(x => x.ColorKey == k))
                     .Select(x => new ColorResource(x.Key, x.ToArray()))
                     .ToArray();
 
-            return colorAndBrushKeys.Select(x => new KeyAndColorResource(x, colorResources.Single(c => c.Keys.Any(k => k == x)))).ToList();
+            return colorAndBrushKeys.Select(x => new KeyAndColorResource(x, colorResources.Single(c => c.Keys.Any(k => k == x))))
+                                    .ToArray();
         }
 
         private static string DumpMarkdownTable(IReadOnlyList<KeyAndColorResource> source)

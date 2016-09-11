@@ -11,64 +11,21 @@
     <Window.DataContext>
         <local:ViewModel />
     </Window.DataContext>
-    <TabControl>
-        <TabItem Header="SystemColors" DataContext="{Binding SystemColors}">
-            <DataGrid x:Name="DataGrid"
-              AutoGenerateColumns="False"
-              ItemsSource="{Binding KeyAndColorResources}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Keys,
-                                                  Mode=OneTime}"
-                                Header="Key"
-                                SortMemberPath="Keys.SortMember" />
-                    <DataGridTextColumn Binding="{Binding ColorResource.Color}"
-                                Header="Color"
-                                SortMemberPath="ColorResource.Hsv.Value" />
-                    <DataGridTextColumn Binding="{Binding ColorResource.Hsv.Hue, Mode=OneWay, StringFormat='F1'}"
-                                Header="Hue"/>
-                    <DataGridTextColumn Binding="{Binding ColorResource.Hsv.Saturation, Mode=OneWay, StringFormat='F1'}"
-                                Header="Saturation" />
-                    <DataGridTextColumn Binding="{Binding ColorResource.Hsv.Value, Mode=OneWay, StringFormat='F1'}"
-                                Header="Value" />
-                    <DataGridTemplateColumn Header="Sample" SortMemberPath="ColorResource.Hsv.Value">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate DataType="{x:Type local:KeyAndColorResource}">
-                                <Rectangle>
-                                    <Rectangle.Fill>
-                                        <SolidColorBrush Color="{Binding ColorResource.Color}" />
-                                    </Rectangle.Fill>
-                                </Rectangle>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Click="OnOpenClick" Header="_Open" />
+            </MenuItem>
+        </Menu>
 
-                    <DataGridTextColumn Binding="{Binding ColorResource.OriginalColor,
-                                                  Mode=OneTime}"
-                                Header="Original color"
-                                SortMemberPath="ColorResource.OriginalHsv.Value" />
-                    <DataGridTextColumn Binding="{Binding ColorResource.OriginalHsv.Hue, Mode=OneWay, StringFormat='F1'}"
-                                Header="Hue" />
-                    <DataGridTextColumn Binding="{Binding ColorResource.OriginalHsv.Saturation, Mode=OneWay, StringFormat='F1'}"
-                                Header="Saturation" />
-                    <DataGridTextColumn Binding="{Binding ColorResource.OriginalHsv.Value, Mode=OneWay, StringFormat='F1'}"
-                                Header="Value" />
+        <TabControl>
+            <TabItem Header="SystemColors">
+                <ContentPresenter Content="{Binding SystemColors.KeyAndColorResources}" />
+            </TabItem>
 
-                    <DataGridTemplateColumn Header="Sample" SortMemberPath="ColorResource.OriginalHsv.Value">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate DataType="{x:Type local:KeyAndColorResource}">
-                                <Rectangle>
-                                    <Rectangle.Fill>
-                                        <SolidColorBrush Color="{Binding ColorResource.OriginalColor, Mode=OneTime}" />
-                                    </Rectangle.Fill>
-                                </Rectangle>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </TabItem>
-        <TabItem Header="ResourceDictionary">
-            
-        </TabItem>
-    </TabControl>
+            <TabItem Header="Resource dictionary" >
+                <ContentPresenter Content="{Binding FromFile.KeyAndColorResources}" />
+            </TabItem>
+        </TabControl>
+    </DockPanel>
 </Window>
