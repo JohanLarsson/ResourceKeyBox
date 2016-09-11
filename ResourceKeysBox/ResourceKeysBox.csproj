@@ -60,6 +60,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ColorConverter.cs" />
+    <Compile Include="Filter.cs" />
     <Compile Include="Hsv.cs" />
     <Compile Include="KeyAndColorResources.cs" />
     <Compile Include="ViewModel.cs" />
