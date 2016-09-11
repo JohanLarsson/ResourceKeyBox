@@ -62,8 +62,6 @@
     <Compile Include="ColorConverter.cs" />
     <Compile Include="Hsv.cs" />
     <Compile Include="KeyAndColorResources.cs" />
-    <Compile Include="ResourceDictionaryViewModel.cs" />
-    <Compile Include="SystemColorsViewModel.cs" />
     <Compile Include="ViewModel.cs" />
     <Compile Include="XElementExt.cs" />
     <Page Include="MainWindow.xaml">

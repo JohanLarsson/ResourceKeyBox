@@ -20,11 +20,11 @@
             {
                 try
                 {
-                    this.ViewModel.FromFile = new ResourceDictionaryViewModel(new FileInfo(fileDialog.FileName));
+                    this.ViewModel.Sources.Add(KeyAndColorResources.Parse(new FileInfo(fileDialog.FileName)));
                 }
                 catch (Exception ex)
                 {
-                    this.ViewModel.FromFile = null;
+                    this.ViewModel.Exception = ex;
                 }
             }
         }
