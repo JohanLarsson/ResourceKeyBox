@@ -6,20 +6,20 @@
 
     public static class Filter
     {
-        public static readonly DependencyProperty WithProperty = DependencyProperty.RegisterAttached(
-            "With",
+        public static readonly DependencyProperty ByProperty = DependencyProperty.RegisterAttached(
+            "By",
             typeof(Predicate<object>),
             typeof(Filter),
             new PropertyMetadata(default(Predicate<object>), OnWithChanged));
 
-        public static void SetWith(ItemsControl element, Predicate<object> value)
+        public static void SetBy(ItemsControl element, Predicate<object> value)
         {
-            element.SetValue(WithProperty, value);
+            element.SetValue(ByProperty, value);
         }
 
-        public static Predicate<object> GetWith(ItemsControl element)
+        public static Predicate<object> GetBy(ItemsControl element)
         {
-            return (Predicate<object>)element.GetValue(WithProperty);
+            return (Predicate<object>)element.GetValue(ByProperty);
         }
 
         private static void OnWithChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

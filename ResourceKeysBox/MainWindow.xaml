@@ -28,7 +28,7 @@
             <TabControl Grid.Row="1" ItemsSource="{Binding Sources}">
                 <TabControl.ContentTemplate>
                     <DataTemplate DataType="{x:Type local:KeyAndColorResources}">
-                        <DataGrid local:Filter.With="{Binding Path=DataContext.Filter,
+                        <DataGrid local:Filter.By="{Binding Path=DataContext.Filter,
                                                               RelativeSource={RelativeSource FindAncestor,
                                                                                              AncestorType={x:Type Window}}}"
                                   AutoGenerateColumns="False"
