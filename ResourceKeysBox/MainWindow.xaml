@@ -11,6 +11,7 @@
     <Window.DataContext>
         <local:ViewModel />
     </Window.DataContext>
+    <!--<local:ThemeBrushesView></local:ThemeBrushesView>-->
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
