@@ -5,7 +5,6 @@
     using System.Runtime.CompilerServices;
     using System.Windows;
     using System.Windows.Media;
-    using JetBrains.Annotations;
 
     public class ColorResource : INotifyPropertyChanged
     {
@@ -60,7 +59,11 @@
             get => this.hsv;
             private set
             {
-                if (value.Equals(this.hsv)) return;
+                if (value.Equals(this.hsv))
+                {
+                    return;
+                }
+
                 this.hsv = value;
                 this.OnPropertyChanged();
             }
@@ -68,7 +71,6 @@
 
         public IReadOnlyList<Keys> Keys { get; }
 
-        [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

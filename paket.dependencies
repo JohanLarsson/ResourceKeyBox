@@ -1,0 +1,13 @@
+source https://www.nuget.org/api/v2/
+framework: net461
+
+nuget NUnit
+nuget Ookii.Dialogs
+
+group Analyzers
+  source http://www.nuget.org/api/v2/
+  framework: net461
+  nuget StyleCop.Analyzers
+  nuget WpfAnalyzers
+  nuget Gu.Analyzers
+  nuget JetBrains.Annotations

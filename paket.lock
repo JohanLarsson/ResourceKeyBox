@@ -1,0 +1,14 @@
+FRAMEWORK: NET461
+NUGET
+  remote: https://www.nuget.org/api/v2
+    NUnit (3.6.1)
+    Ookii.Dialogs (1.0)
+
+GROUP Analyzers
+FRAMEWORK: NET461
+NUGET
+  remote: http://www.nuget.org/api/v2
+    Gu.Analyzers (0.1.11.23-dev)
+    JetBrains.Annotations (10.4)
+    StyleCop.Analyzers (1.0)
+    WpfAnalyzers (0.2.7.10)

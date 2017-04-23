@@ -4,7 +4,6 @@
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
-    using JetBrains.Annotations;
 
     public class ViewModel : INotifyPropertyChanged
     {
@@ -26,7 +25,11 @@
             get => this.exception;
             set
             {
-                if (Equals(value, this.exception)) return;
+                if (Equals(value, this.exception))
+                {
+                    return;
+                }
+
                 this.exception = value;
                 this.OnPropertyChanged();
             }
@@ -37,7 +40,11 @@
             get => this.filterText;
             set
             {
-                if (value == this.filterText) return;
+                if (value == this.filterText)
+                {
+                    return;
+                }
+
                 this.filterText = value;
                 this.OnPropertyChanged();
                 this.Filter = string.IsNullOrEmpty(this.filterText) ? (Predicate<object>)null : this.IsMatch;
@@ -49,12 +56,16 @@
             get => this.filter;
             private set
             {
+                if (ReferenceEquals(value, this.filter))
+                {
+                    return;
+                }
+
                 this.filter = value;
                 this.OnPropertyChanged();
             }
         }
 
-        [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

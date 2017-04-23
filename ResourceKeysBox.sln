@@ -1,8 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{40F33E7A-E2C7-42AF-8841-26809C0F8F8E}"
+	ProjectSection(SolutionItems) = preProject
+		paket.dependencies = paket.dependencies
+		paket.lock = paket.lock
+		.paket\Readme.paket.md = .paket\Readme.paket.md
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResourceKeysBox", "ResourceKeysBox\ResourceKeysBox.csproj", "{24EB05BD-73B5-4C5D-A277-3A547F35CC2F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResourceKeyBox.Tests", "ResourceKeyBox.Tests\ResourceKeyBox.Tests.csproj", "{D121DFDE-DA86-4B5F-9255-BEB1B5C7A6C7}"
