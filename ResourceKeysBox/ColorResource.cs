@@ -29,7 +29,7 @@
 
         public Color Color
         {
-            get { return this.color; }
+            get => this.color;
             set
             {
                 if (this.color == value)
@@ -57,7 +57,7 @@
 
         public Hsv Hsv
         {
-            get { return this.hsv; }
+            get => this.hsv;
             private set
             {
                 if (value.Equals(this.hsv)) return;

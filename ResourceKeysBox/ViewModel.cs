@@ -3,7 +3,6 @@
     using System;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
-    using System.Diagnostics;
     using System.Runtime.CompilerServices;
     using JetBrains.Annotations;
 
@@ -24,7 +23,7 @@
 
         public Exception Exception
         {
-            get { return this.exception; }
+            get => this.exception;
             set
             {
                 if (Equals(value, this.exception)) return;
@@ -35,7 +34,7 @@
 
         public string FilterText
         {
-            get { return this.filterText; }
+            get => this.filterText;
             set
             {
                 if (value == this.filterText) return;
@@ -47,7 +46,7 @@
 
         public Predicate<object> Filter
         {
-            get { return this.filter; }
+            get => this.filter;
             private set
             {
                 this.filter = value;
